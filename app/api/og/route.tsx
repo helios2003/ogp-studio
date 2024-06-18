@@ -1,23 +1,23 @@
-import { NextRequest, NextResponse } from "next/server";
-import { ImageResponse } from "next/og";
+import { NextRequest, NextResponse } from 'next/server';
+import { ImageResponse } from 'next/og';
 
-export const runtime = "edge";
+export const runtime = 'edge';
 
 export async function GET(req: NextRequest): Promise<ImageResponse | NextResponse> {
   try {
     const searchParams = req.nextUrl.searchParams;
 
-    const title = searchParams.has("title")
-      ? (searchParams.get("title") as string)
+    const title = searchParams.has('title')
+      ? (searchParams.get('title') as string)
       : null;
-    const description = searchParams.has("description")
-      ? (searchParams.get("description") as string)
+    const description = searchParams.has('description')
+      ? (searchParams.get('description') as string)
       : null;
-    const numServers = searchParams.has("numServers")
-      ? (searchParams.get("numServers") as string)
+    const numServers = searchParams.has('numServers')
+      ? (searchParams.get('numServers') as string)
       : null;
-    const numChannels = searchParams.has("numChannels")
-      ? (searchParams.get("numChannels") as string)
+    const numChannels = searchParams.has('numChannels')
+      ? (searchParams.get('numChannels') as string)
       : null;
 
     JSON.stringify({
@@ -35,13 +35,13 @@ export async function GET(req: NextRequest): Promise<ImageResponse | NextRespons
       (
         <div
           style={{
-            height: "100%",
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: "#fff",
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#fff',
             backgroundImage: `url(${image})`,
             fontSize: 32,
             fontWeight: 600,
@@ -64,6 +64,6 @@ export async function GET(req: NextRequest): Promise<ImageResponse | NextRespons
     );
   } catch (err: any) {
     console.error(err);
-    return new NextResponse("Failed to generate image", { status: 500 });
+    return new NextResponse('Failed to generate image', { status: 500 });
   }
 }

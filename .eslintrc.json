@@ -1,3 +1,23 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals"
+  ],
+  "rules": {
+    "strict": 0,
+    "eol-last": ["error", "always"],
+    "no-warning-comments": "error",
+    "no-loop-func": "error",
+    "curly": ["error"],
+    "no-multi-spaces": "error",
+    "consistent-return": 0,
+    "no-console": 0,
+    "quotes": [
+      2,
+      "single"
+    ],
+    "indent": [
+      2,
+      2
+    ]
+  }
 }
