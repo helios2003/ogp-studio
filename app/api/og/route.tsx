@@ -1,32 +1,36 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ImageResponse } from 'next/og';
+import parseURL from '@/app/helpers/parser';
+import { DocumentInfo } from '@/app/types';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 export async function GET(req: NextRequest): Promise<ImageResponse | NextResponse> {
   try {
     const searchParams = req.nextUrl.searchParams;
+    const encodedDocument = searchParams.get('base64');
+    let ans = '';
+    if (encodedDocument) {
+      const info: DocumentInfo = await parseURL(encodedDocument);
+      ans = JSON.stringify(info);
+    }
+    
+    // const title = searchParams.has('title')
+    //   ? (searchParams.get('title') as string)
+    //   : null;
+    // const description = searchParams.has('description')
+    //   ? (searchParams.get('description') as string)
+    //   : null;
+    // const numServers = searchParams.has('numServers')
+    //   ? (searchParams.get('numServers') as string)
+    //   : null;
+    // const numChannels = searchParams.has('numChannels')
+    //   ? (searchParams.get('numChannels') as string)
+    //   : null;
 
-    const title = searchParams.has('title')
-      ? (searchParams.get('title') as string)
-      : null;
-    const description = searchParams.has('description')
-      ? (searchParams.get('description') as string)
-      : null;
-    const numServers = searchParams.has('numServers')
-      ? (searchParams.get('numServers') as string)
-      : null;
-    const numChannels = searchParams.has('numChannels')
-      ? (searchParams.get('numChannels') as string)
-      : null;
-
-    JSON.stringify({
-      title,
-      description,
-      numServers,
-      numChannels,
-    });
-
+    // JSON.stringify({
+    //   info
+    // });
     const { image } = { 
       image: 'https://svgshare.com/i/145Z.svg' 
     };
@@ -47,7 +51,7 @@ export async function GET(req: NextRequest): Promise<ImageResponse | NextRespons
             fontWeight: 600,
           }}
         >
-          <div>
+          {/* <div>
             {title ? `Title: ${title}` : null}
           </div>
           <div>
@@ -58,7 +62,8 @@ export async function GET(req: NextRequest): Promise<ImageResponse | NextRespons
           </div>
           <div>
             {numChannels ? `Number of Channels: ${numChannels}` : null}
-          </div>
+          </div> */}
+          {ans}
         </div>
       )
     );
