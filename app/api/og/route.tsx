@@ -6,7 +6,6 @@ export const runtime = 'edge';
 export async function GET(req: NextRequest): Promise<ImageResponse | NextResponse> {
   try {
     const searchParams = req.nextUrl.searchParams;
-
     const title = searchParams.has('title')
       ? (searchParams.get('title') as string)
       : null;
