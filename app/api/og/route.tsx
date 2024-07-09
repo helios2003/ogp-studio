@@ -20,15 +20,8 @@ export async function GET(req: NextRequest): Promise<ImageResponse | NextRespons
       ? (searchParams.get('numChannels') as string)
       : null;
 
-    JSON.stringify({
-      title,
-      description,
-      numServers,
-      numChannels,
-    });
-
-    const { image } = { 
-      image: 'https://svgshare.com/i/145Z.svg' 
+    const { image } = {
+      image: 'https://svgshare.com/i/145Z.svg'
     };
 
     return new ImageResponse(
@@ -43,15 +36,16 @@ export async function GET(req: NextRequest): Promise<ImageResponse | NextRespons
             justifyContent: 'center',
             backgroundColor: '#fff',
             backgroundImage: `url(${image})`,
+            textAlign: 'center',
             fontSize: 32,
             fontWeight: 600,
           }}
         >
-          <div>
-            {title ? `Title: ${title}` : null}
+          <div style={{fontSize: '48'}}>
+            {title ? `Title: ${title.replace(/["']/g, '')}` : null}
           </div>
           <div>
-            {description ? `Description: ${description}` : null}
+            {description ? `Description: ${description.replace(/["']/g, '')}` : null}
           </div>
           <div>
             {numServers ? `Number of Servers: ${numServers}` : null}
