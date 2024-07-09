@@ -7,18 +7,10 @@ export async function GET(req: NextRequest): Promise<ImageResponse | NextRespons
   try {
     const searchParams = req.nextUrl.searchParams;
 
-    const title = searchParams.has('title')
-      ? (searchParams.get('title') as string)
-      : null;
-    const description = searchParams.has('description')
-      ? (searchParams.get('description') as string)
-      : null;
-    const numServers = searchParams.has('numServers')
-      ? (searchParams.get('numServers') as string)
-      : null;
-    const numChannels = searchParams.has('numChannels')
-      ? (searchParams.get('numChannels') as string)
-      : null;
+    const title = searchParams.get('title') || null;
+    const description = searchParams.get('description') || null;
+    const numServers = searchParams.get('numServers') || null;
+    const numChannels = searchParams.get('numChannels') || null;
 
     const { image } = {
       image: 'https://svgshare.com/i/145Z.svg'
@@ -41,7 +33,7 @@ export async function GET(req: NextRequest): Promise<ImageResponse | NextRespons
             fontWeight: 600,
           }}
         >
-          <div style={{fontSize: '48'}}>
+          <div style={{ fontSize: '48' }}>
             {title ? `Title: ${title.replace(/["']/g, '')}` : null}
           </div>
           <div>
