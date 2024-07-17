@@ -7,11 +7,25 @@ export async function GET(req: NextRequest): Promise<ImageResponse | NextRespons
   try {
     const searchParams = req.nextUrl.searchParams;
 
-    const title = searchParams.get('title') ? decodeURIComponent(searchParams.get('title')!) : null;
-    const description = searchParams.get('description') ? decodeURIComponent(searchParams.get('description')!) : null;
-    const numServers = searchParams.get('numServers') ? decodeURIComponent(searchParams.get('numServers')!) : null;
-    const numChannels = searchParams.get('numChannels') ? decodeURIComponent(searchParams.get('numChannels')!) : null;
-
+    const title = searchParams.has('title')
+      ? (searchParams.get('title') as string)
+      : null;
+    const description = searchParams.has('description')
+      ? (searchParams.get('description') as string)
+      : null;
+    const numServers = searchParams.has('numServers')
+      ? (searchParams.get('numServers') as string)
+      : null;
+    const numChannels = searchParams.has('numChannels')
+      ? (searchParams.get('numChannels') as string)
+      : null;
+    const numOperations = searchParams.has('numOperations')
+      ? (searchParams.get('numOperations') as string)
+      : null;
+    const numMessages = searchParams.has('numMessages')
+      ? (searchParams.get('numMessages') as string)
+      : null;
+      
     const { image } = {
       image: 'https://svgshare.com/i/145Z.svg'
     };
@@ -44,6 +58,12 @@ export async function GET(req: NextRequest): Promise<ImageResponse | NextRespons
           </div>
           <div>
             {numChannels ? `Number of Channels: ${numChannels}` : null}
+          </div>
+          <div>
+            {numOperations ? `Number of Operations: ${numOperations}` : null}
+          </div>
+          <div>
+            {numMessages ? `Number of Messages: ${numMessages}` : null}
           </div>
         </div>
       )
