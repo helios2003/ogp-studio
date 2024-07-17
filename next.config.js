@@ -2,7 +2,20 @@
  
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
-}
+  reactStrictMode: true,
+  async headers() {
+    return [
+      {
+        source: '/api/og',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-cache, must-revalidate, proxy-revalidate'
+          },
+        ],
+      },
+    ];
+  },
+};
  
-module.exports = nextConfig
+module.exports = nextConfig;
