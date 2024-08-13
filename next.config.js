@@ -10,7 +10,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'no-cache, must-revalidate, proxy-revalidate'
+            value: 'public,  max-age=3600, s-maxage=3600, stale-while-revalidate=3600, vary=user-agent'
           },
         ],
       },
