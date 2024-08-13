@@ -5,7 +5,11 @@ export const runtime = 'edge';
 
 export async function GET(req: NextRequest): Promise<ImageResponse | NextResponse> {
   try {
+
     const searchParams = req.nextUrl.searchParams;
+    const userAgent = req.headers.get('user-agent');
+    const cacheKey = `${req.url}${userAgent}`;
+    console.log(cacheKey);
 
     const title = searchParams.has('title')
       ? (searchParams.get('title') as string)
@@ -30,7 +34,7 @@ export async function GET(req: NextRequest): Promise<ImageResponse | NextRespons
       image: 'https://svgshare.com/i/145Z.svg'
     };
 
-    return new ImageResponse(
+    const imageResponse = new ImageResponse(
       (
         <div
           style={{
@@ -68,6 +72,13 @@ export async function GET(req: NextRequest): Promise<ImageResponse | NextRespons
         </div>
       )
     );
+    
+    imageResponse.headers.set('Cache-Control', 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=3600');
+    imageResponse.headers.set('Vary', 'User-Agent');
+    imageResponse.headers.set('ETag', `"${cacheKey}"`);
+
+    return imageResponse;
+
   } catch (err: any) {
     console.error(err);
     return new NextResponse('Failed to generate image', { status: 500 });
