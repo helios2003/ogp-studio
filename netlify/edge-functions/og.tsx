@@ -1,5 +1,5 @@
 import { Context } from '@netlify/edge-functions';
-import React from "https://esm.sh/react@18.2.0";
+import React from 'https://esm.sh/react@18.2.0';
 import { ImageResponse } from 'https://deno.land/x/og_edge/mod.ts';
 
 export default async function handler(request: Request, context: Context) {
