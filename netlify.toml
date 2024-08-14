@@ -4,4 +4,4 @@
 
 [[edge_functions]]
   function = "og"
-  path = "/api/og"
+  path = "/og"
