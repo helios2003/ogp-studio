@@ -1,17 +1,12 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { ImageResponse } from 'next/og';
+import { Context } from '@netlify/edge-functions';
+import { ImageResponse } from '@vercel/og';
 
-export const runtime = 'edge';
-
-export async function GET(req: NextRequest): Promise<ImageResponse | NextResponse> {
+export default async function handler(request: Request, context: Context) {
   try {
-
-    const searchParams = req.nextUrl.searchParams;
-    const userAgent = req.headers.get('user-agent');
-    const cacheKey = `${req.url}${userAgent}`;
-    console.log(cacheKey);
-
+    const url = new URL(request.url);
+    const searchParams = url.searchParams;
     const title = searchParams.has('title')
+
       ? (searchParams.get('title') as string)
       : null;
     const description = searchParams.has('description')
@@ -33,8 +28,7 @@ export async function GET(req: NextRequest): Promise<ImageResponse | NextRespons
     const { image } = {
       image: 'https://svgshare.com/i/145Z.svg'
     };
-
-    const imageResponse = new ImageResponse(
+    return new ImageResponse(
       (
         <div
           style={{
@@ -72,15 +66,7 @@ export async function GET(req: NextRequest): Promise<ImageResponse | NextRespons
         </div>
       )
     );
-
-    imageResponse.headers.set('Cache-Control', 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=3600');
-    imageResponse.headers.set('Vary', 'User-Agent');
-    imageResponse.headers.set('ETag', `"${cacheKey}"`);
-
-    return imageResponse;
-
-  } catch (err: any) {
-    console.error(err);
-    return new NextResponse('Failed to generate image', { status: 500 });
+  } catch(err) {
+    return new Response('Failed to generate image', { status: 500 });
   }
 }
