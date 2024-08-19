@@ -1,8 +1,7 @@
-import { Context } from '@netlify/edge-functions';
 import React from 'https://esm.sh/react@18.2.0';
 import { ImageResponse } from 'https://deno.land/x/og_edge/mod.ts';
 
-export default async function handler(request: Request, context: Context) {
+export default async function handler(request: Request) {
   try {
     const url = new URL(request.url);
     const searchParams = url.searchParams;
@@ -67,7 +66,7 @@ export default async function handler(request: Request, context: Context) {
         </div>
       )
     );
-  } catch(err) {
+  } catch (err) {
     return new Response('Failed to generate image', { status: 500 });
   }
 }
