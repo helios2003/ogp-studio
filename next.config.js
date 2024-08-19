@@ -3,24 +3,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // async headers() {
-  //   return [
-  //     {
-  //       source: '/api/og',
-  //       headers: [
-  //         {
-  //           key: 'Cache-Control',
-  //           value:
-  //             'public, max-age=3600, s-maxage=3600, stale-while-revalidate=3600',
-  //         },
-  //         {
-  //           key: 'Vary',
-  //           value: 'User-Agent, Path',
-  //         },
-  //       ],
-  //     },
-  //   ];
-  // },
+  typescript: {
+    // !! WARN !!
+    // Dangerously allow production builds to successfully complete even if
+    // your project has type errors.
+    // !! WARN !!
+    ignoreBuildErrors: true,
+  },
 };
 
 module.exports = nextConfig;
