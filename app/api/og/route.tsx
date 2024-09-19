@@ -27,7 +27,7 @@ export async function GET(req: NextRequest): Promise<ImageResponse | NextRespons
       : null;
       
     const { image } = {
-      image: 'https://svgshare.com/i/145Z.svg'
+      image: 'https://i.postimg.cc/vZpp6JfS/og-base.png'
     };
 
     return new ImageResponse(
@@ -43,14 +43,15 @@ export async function GET(req: NextRequest): Promise<ImageResponse | NextRespons
             backgroundColor: '#fff',
             backgroundImage: `url(${image})`,
             textAlign: 'center',
+            color: 'white',
             fontSize: 32,
             fontWeight: 600,
           }}
         >
-          <div style={{ fontSize: '48' }}>
+          <div tw='font-semibold text-5xl pt-16'>
             {title ? `Title: ${title.replace(/["']/g, '')}` : null}
           </div>
-          <div>
+          <div tw='my-4'>
             {description ? `Description: ${description.replace(/["']/g, '')}` : null}
           </div>
           <div>
