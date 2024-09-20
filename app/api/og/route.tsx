@@ -25,9 +25,9 @@ export async function GET(req: NextRequest): Promise<ImageResponse | NextRespons
     const numMessages = searchParams.has('numMessages')
       ? (searchParams.get('numMessages') as string)
       : null;
-      
+
     const { image } = {
-      image: 'https://i.postimg.cc/vZpp6JfS/og-base.png'
+      image: 'https://i.postimg.cc/6qtLWGLh/og-base-1.png'
     };
 
     return new ImageResponse(
@@ -48,22 +48,22 @@ export async function GET(req: NextRequest): Promise<ImageResponse | NextRespons
             fontWeight: 600,
           }}
         >
-          <div tw='font-semibold text-5xl pt-16'>
+          <div tw='font-semibold text-5xl m-4'>
             {title ? `Title: ${title.replace(/["']/g, '')}` : null}
           </div>
-          <div tw='my-4'>
+          <div tw='p-2'>
             {description ? `Description: ${description.replace(/["']/g, '')}` : null}
           </div>
-          <div>
+          <div tw='p-2'>
             {numServers ? `Number of Servers: ${numServers}` : null}
           </div>
-          <div>
+          <div tw='p-2'>
             {numChannels ? `Number of Channels: ${numChannels}` : null}
           </div>
-          <div>
+          <div tw='p-2'>
             {numOperations ? `Number of Operations: ${numOperations}` : null}
           </div>
-          <div>
+          <div tw='p-2'>
             {numMessages ? `Number of Messages: ${numMessages}` : null}
           </div>
         </div>
